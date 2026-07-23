@@ -1,0 +1,24 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "migrate": "node --loader ts-node/esm src/migrate.ts"
+  },
+  "dependencies": {
+    "@sanity/client": "^6.21.3",
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
+    "jsdom": "^25.0.1",
+    "xml2js": "^0.6.2",
+    "slugify": "^1.6.6"
+  },
+  "devDependencies": {
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^22.10.2",
+    "@types/xml2js": "^0.4.14",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}

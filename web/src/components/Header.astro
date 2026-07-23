@@ -1,0 +1,95 @@
+---
+/**
+ * Header component — fixed navigation bar, edge to edge.
+ * Minimalist: hamburger flush-left, logo centered, theme toggle flush-right.
+ */
+import ThemeToggle from "./ThemeToggle.tsx";
+import HeaderLeft from "./HeaderLeft.tsx";
+---
+
+<header class="header" id="site-header">
+  <div class="header__inner">
+    <HeaderLeft client:load />
+
+    <a href="/" class="header__logo" aria-label="Strona główna">
+      <span class="header__logo-text">Gdy w brzuchu burczy</span>
+    </a>
+
+    <div class="header__right">
+      <nav class="header__nav" aria-label="Nawigacja główna">
+        <a href="/wspolpraca" class="header__nav-link">Współpraca</a>
+        <a href="/o-mnie" class="header__nav-link">O mnie</a>
+      </nav>
+      <ThemeToggle client:load />
+    </div>
+  </div>
+</header>
+
+<style lang="scss">
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: $z-header;
+    height: $header-height;
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    transition: background-color $transition-normal;
+
+    &__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      padding: 0 $space-12;
+      @media (max-width: 640px) {
+        padding: 0 $space-2;
+      }
+      /* NO max-width — full edge-to-edge */
+    }
+
+    &__logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--color-heading);
+      text-decoration: none;
+      white-space: nowrap;
+
+      &-text {
+        font-family: $font-heading;
+        font-size: $font-size-lg;
+        font-weight: $font-weight-medium;
+        letter-spacing: -0.01em;
+      }
+    }
+
+    &__right {
+      display: flex;
+      align-items: center;
+      gap: $space-4;
+    }
+
+    &__nav {
+      display: flex;
+      gap: $space-4;
+
+      @media (max-width: $bp-mobile) {
+        display: none;
+      }
+
+      &-link {
+        font-size: $font-size-sm;
+        font-weight: $font-weight-normal;
+        color: var(--color-muted);
+        transition: color $transition-fast;
+        text-decoration: none;
+
+        &:hover {
+          color: var(--color-text);
+        }
+      }
+    }
+  }
+</style>

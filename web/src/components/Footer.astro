@@ -1,0 +1,197 @@
+---
+/**
+ * Footer component — SEO-optimized footer with copyright,
+ * privacy policy link, social links, and category navigation.
+ */
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer" id="site-footer">
+  <div class="footer__inner container">
+    <!-- Logo & description -->
+    <div class="footer__brand">
+      <a href="/" class="footer__logo">
+        <span class="footer__logo-icon">🍳</span>
+        <span class="footer__logo-text">Gdy w brzuchu burczy</span>
+      </a>
+      <p class="footer__description">
+        Blog kulinarny ze sprawdzonymi, pysznymi przepisami. Gotowanie z pasją
+        od ponad 10 lat.
+      </p>
+    </div>
+
+    <!-- Category links for SEO -->
+    <nav class="footer__nav" aria-label="Kategorie przepisów">
+      <h3 class="footer__heading">Kategorie</h3>
+      <ul class="footer__links">
+        <li><a href="/przepisy?meal=breakfast">Śniadania</a></li>
+        <li><a href="/przepisy?meal=lunch">Obiady</a></li>
+        <li><a href="/przepisy?meal=dinner">Kolacje</a></li>
+        <li><a href="/przepisy?meal=dessert">Desery</a></li>
+        <li><a href="/przepisy?meal=snack">Przekąski</a></li>
+        <li><a href="/przepisy?diet=vegetarian">Wegetariańskie</a></li>
+        <li><a href="/przepisy?diet=gluten-free">Bezglutenowe</a></li>
+      </ul>
+    </nav>
+
+    <!-- Info links -->
+    <nav class="footer__nav" aria-label="Informacje">
+      <h3 class="footer__heading">Informacje</h3>
+      <ul class="footer__links">
+        <li><a href="/o-mnie">O mnie</a></li>
+        <li><a href="/wspolpraca">Współpraca</a></li>
+        <li><a href="/polityka-prywatnosci">Polityka prywatności</a></li>
+      </ul>
+    </nav>
+
+    <!-- Social -->
+    <div class="footer__social">
+      <h3 class="footer__heading">Obserwuj</h3>
+      <div class="footer__social-links">
+        <a
+          href="https://facebook.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Facebook"
+        >
+          Facebook
+        </a>
+        <a
+          href="https://instagram.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+        >
+          Instagram
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Copyright bar -->
+  <div class="footer__copyright">
+    <div class="container">
+      <p>
+        &copy; {currentYear} Gdy w brzuchu burczy. Wszystkie prawa zastrzeżone.
+      </p>
+      <p class="footer__copyright-detail">
+        Wszystkie treści, przepisy i fotografie zamieszczone na tej stronie są
+        chronione prawem autorskim. Kopiowanie, rozpowszechnianie lub
+        wykorzystywanie materiałów bez pisemnej zgody autora jest zabronione.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style lang="scss">
+  .footer {
+    margin-top: $space-20;
+    border-top: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+
+    &__inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: $space-10;
+      padding-block: $space-12;
+
+      @media (max-width: $bp-tablet) {
+        grid-template-columns: 1fr 1fr;
+        gap: $space-8;
+      }
+
+      @media (max-width: $bp-mobile) {
+        grid-template-columns: 1fr;
+        gap: $space-6;
+      }
+    }
+
+    &__brand {
+      max-width: 320px;
+    }
+
+    &__logo {
+      display: inline-flex;
+      align-items: center;
+      gap: $space-2;
+      margin-bottom: $space-4;
+
+      &-icon {
+        font-size: $font-size-2xl;
+      }
+
+      &-text {
+        font-family: $font-heading;
+        font-size: $font-size-lg;
+        font-weight: $font-weight-bold;
+        color: var(--color-heading);
+      }
+    }
+
+    &__description {
+      font-size: $font-size-sm;
+      color: var(--color-muted);
+      line-height: $line-height-relaxed;
+    }
+
+    &__heading {
+      font-size: $font-size-sm;
+      font-weight: $font-weight-semibold;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-heading);
+      margin-bottom: $space-4;
+    }
+
+    &__links {
+      display: flex;
+      flex-direction: column;
+      gap: $space-2;
+
+      a {
+        font-size: $font-size-sm;
+        color: var(--color-muted);
+        transition: color $transition-fast;
+
+        &:hover {
+          color: var(--color-accent);
+        }
+      }
+    }
+
+    &__social-links {
+      display: flex;
+      flex-direction: column;
+      gap: $space-2;
+
+      a {
+        font-size: $font-size-sm;
+        color: var(--color-muted);
+        transition: color $transition-fast;
+
+        &:hover {
+          color: var(--color-accent);
+        }
+      }
+    }
+
+    &__copyright {
+      border-top: 1px solid var(--color-border);
+      padding-block: $space-6;
+      text-align: center;
+
+      p {
+        font-size: $font-size-xs;
+        color: var(--color-muted);
+        line-height: $line-height-normal;
+      }
+
+      &-detail {
+        margin-top: $space-2;
+        font-size: $font-size-xs;
+        max-width: 600px;
+        margin-inline: auto;
+      }
+    }
+  }
+</style>

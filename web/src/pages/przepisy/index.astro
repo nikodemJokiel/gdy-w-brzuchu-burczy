@@ -1,0 +1,16 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostGridClient from "../../components/PostGridClient.tsx";
+import { sanityClient, RECIPES_QUERY } from "../../lib/sanity";
+
+const title = "Wszystkie przepisy - Gdy w brzuchu burczy";
+const description = "Baza sprawdzonych i pysznych przepisów.";
+
+const posts = await sanityClient.fetch(RECIPES_QUERY);
+---
+
+<BaseLayout title={title} description={description}>
+  <main class="container" style="padding-top: 2rem; padding-bottom: 4rem;">
+    <PostGridClient client:load initialPosts={posts} />
+  </main>
+</BaseLayout>

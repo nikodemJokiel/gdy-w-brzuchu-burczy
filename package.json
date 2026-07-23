@@ -1,0 +1,16 @@
+{
+  "name": "gdy-w-brzuchu-burczy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Blog kulinarny 'Gdy w brzuchu burczy' — Astro + Sanity CMS + Cloudflare Pages",
+  "scripts": {
+    "dev:studio": "pnpm --filter studio dev",
+    "dev:web": "pnpm --filter web dev",
+    "build:web": "pnpm --filter web build",
+    "migrate": "pnpm --filter scripts migrate",
+    "lint": "pnpm -r lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,astro,scss,css,json,md}\""
+  },
+  "keywords": ["blog", "culinary", "astro", "sanity"],
+  "license": "MIT"
+}

@@ -1,0 +1,59 @@
+// =============================================================================
+// Layout — Grid utilities, container, and responsive helpers
+// =============================================================================
+
+@use "variables" as *;
+
+.container {
+  width: 100%;
+  max-width: $content-max-width;
+  margin-inline: auto;
+  padding-inline: $content-padding;
+}
+
+.main-content {
+  padding-top: calc($header-height + $space-8);
+  min-height: 100vh;
+}
+
+// Post grid — 3 columns desktop, 2 tablet, 1 mobile
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-8;
+
+  @media (max-width: $bp-tablet) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-6;
+  }
+
+  @media (max-width: $bp-mobile) {
+    grid-template-columns: 1fr;
+    gap: $space-6;
+  }
+}
+
+// Two-column layout for recipe pages (desktop)
+.recipe-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: $space-10;
+
+  @media (max-width: $bp-tablet) {
+    grid-template-columns: 1fr;
+    gap: $space-6;
+  }
+}
+
+// Visually hidden but accessible
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

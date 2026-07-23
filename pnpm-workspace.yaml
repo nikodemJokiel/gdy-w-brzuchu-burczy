@@ -1,0 +1,9 @@
+packages:
+  - "studio"
+  - "web"
+  - "scripts"
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  sharp: true
+  workerd: true

@@ -1,0 +1,71 @@
+// =============================================================================
+// Global Styles — Theme setup with CSS custom properties
+// =============================================================================
+
+@use "variables" as *;
+@use "reset";
+@use "typography";
+@use "layout";
+
+// CSS Custom Properties — mapped from SCSS variables.
+// The theme toggle switches between light/dark by toggling [data-theme] on <html>.
+:root,
+[data-theme="light"] {
+  --color-bg: #{$color-bg-light};
+  --color-text: #{$color-text-light};
+  --color-heading: #{$color-heading-light};
+  --color-accent: #{$color-accent-light};
+  --color-accent-hover: #{$color-accent-hover-light};
+  --color-muted: #{$color-muted-light};
+  --color-border: #{$color-border-light};
+  --color-surface: #{$color-surface-light};
+  --color-card: #{$color-card-light};
+}
+
+[data-theme="dark"] {
+  --color-bg: #{$color-bg-dark};
+  --color-text: #{$color-text-dark};
+  --color-heading: #{$color-heading-dark};
+  --color-accent: #{$color-accent-dark};
+  --color-accent-hover: #{$color-accent-hover-dark};
+  --color-muted: #{$color-muted-dark};
+  --color-border: #{$color-border-dark};
+  --color-surface: #{$color-surface-dark};
+  --color-card: #{$color-card-dark};
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: background-color $transition-normal, color $transition-normal;
+}
+
+// Headings use accent green
+h1,
+h2,
+h3,
+h4 {
+  color: var(--color-heading);
+}
+
+// Links
+a {
+  color: var(--color-accent);
+  transition: color $transition-fast;
+
+  &:hover {
+    color: var(--color-accent-hover);
+  }
+}
+
+// Prevent image copying (as per spec)
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+// Selection color
+::selection {
+  background-color: var(--color-accent);
+  color: white;
+}

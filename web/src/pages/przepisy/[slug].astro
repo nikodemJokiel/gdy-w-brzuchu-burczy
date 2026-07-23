@@ -1,0 +1,55 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { sanityClient, RECIPE_BY_SLUG_QUERY, urlFor } from "../../lib/sanity";
+
+export async function getStaticPaths() {
+  const query = `*[_type == "recipe"] { "slug": slug.current }`;
+  const recipes = await sanityClient.fetch(query);
+  return recipes.map((recipe: any) => ({
+    params: { slug: recipe.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const post = await sanityClient.fetch(RECIPE_BY_SLUG_QUERY, { slug });
+
+if (!post) {
+  return Astro.redirect("/404");
+}
+
+const title = `${post.title} - Gdy w brzuchu burczy`;
+const description = post.excerpt || `Przepis na ${post.title}`;
+---
+
+<BaseLayout title={title} description={description}>
+  <main class="container" style="padding-top: 2rem; padding-bottom: 4rem;" data-pagefind-body>
+    <article>
+      <h1 data-pagefind-meta="title">{post.title}</h1>
+      <p>{post.publishedAt ? new Date(post.publishedAt).toLocaleDateString("pl-PL") : "Brak daty"}</p>
+      
+      {post.mainImage && (
+        <img 
+          src={urlFor(post.mainImage).width(1200).height(800).format("webp").url()} 
+          alt={post.title}
+          style="width: 100%; height: auto; border-radius: 8px; margin: 2rem 0;"
+          data-pagefind-meta="image[src]"
+        />
+      )}
+
+      {/* Hidden tags for pagefind to index */}
+      <div style="display: none;">
+        {post.tags?.map((tag: any) => (
+          <span data-pagefind-filter={tag.category}>{tag.name}</span>
+        ))}
+        {post.mealType && <span data-pagefind-filter="mealType">{post.mealType}</span>}
+        {post.diet?.map((d: string) => (
+          <span data-pagefind-filter="diet">{d}</span>
+        ))}
+      </div>
+      
+      <div class="recipe-content">
+        <p>W pełnej implementacji w fazie 5 znajdzie się tu struktura ze składnikami, Portable Text posta oraz checkboxy. Na ten moment jest to mock podstrony potrzebny do indeksowania Pagefind i linkowania.</p>
+      </div>
+    </article>
+  </main>
+</BaseLayout>

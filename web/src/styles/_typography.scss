@@ -1,0 +1,50 @@
+// =============================================================================
+// Typography — Font imports and base typographic styles
+// =============================================================================
+
+@use "variables" as *;
+
+// Google Fonts import — DM Sans (headings) + Inter (body)
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=Inter:wght@300;400;500;600;700&display=swap");
+
+body {
+  font-family: $font-body;
+  font-size: $font-size-base;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-heading;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+}
+
+h1 {
+  font-size: $font-size-4xl;
+}
+
+h2 {
+  font-size: $font-size-3xl;
+}
+
+h3 {
+  font-size: $font-size-2xl;
+}
+
+h4 {
+  font-size: $font-size-xl;
+}
+
+p {
+  line-height: $line-height-relaxed;
+}
+
+small {
+  font-size: $font-size-sm;
+}

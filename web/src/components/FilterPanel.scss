@@ -1,0 +1,55 @@
+/* Filter Panel — full width inline expansion */
+
+.filter-panel {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 1.5rem;
+  width: 100%; /* Obejmuje całą szerokość nad postami */
+
+  &__section {
+    margin-bottom: 1.25rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+    margin-bottom: 0.75rem;
+    margin-top: 0;
+  }
+
+  &__group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  &__pill {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 4px; /* Slightly less rounded */
+    padding: 0.4rem 1rem;
+    font-size: 0.8125rem;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 400;
+
+    &:hover {
+      border-color: var(--color-text);
+    }
+
+    &.is-active {
+      background-color: var(--color-text);
+      color: var(--color-bg);
+      border-color: var(--color-text);
+    }
+  }
+}

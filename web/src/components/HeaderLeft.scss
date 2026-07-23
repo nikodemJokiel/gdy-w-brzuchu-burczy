@@ -1,0 +1,111 @@
+.header__left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* $space-3 */
+  flex: 1;
+}
+
+.header__hamburger {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-surface);
+  }
+
+  &-line {
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background-color: var(--color-text);
+    border-radius: 1px;
+    transition: transform 0.3s ease;
+  }
+
+  /* Kiedy ZAMKNIĘTY (dwie równoległe kreski) */
+  .header__hamburger-line:nth-child(1) {
+    transform: translateY(-4px);
+  }
+  .header__hamburger-line:nth-child(2) {
+    transform: translateY(4px);
+  }
+
+  /* Kiedy OTWARTY (krzyżyk X) */
+  &[aria-expanded="true"] {
+    .header__hamburger-line:nth-child(1) {
+      transform: rotate(45deg);
+    }
+    .header__hamburger-line:nth-child(2) {
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+.header__search {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.header__search-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem; /* $space-2 */
+  border-radius: 0.25rem; /* $radius-sm */
+  color: var(--color-text);
+  transition: background-color 0.2s ease;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 2;
+
+  &:hover {
+    background-color: var(--color-surface);
+  }
+}
+
+.header__search-form {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%) translateX(-10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  background: var(--color-bg);
+  padding: 0.25rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+  .header__search.is-active & {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+.header__search-input {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  outline: none;
+  width: 200px;
+  font-size: 0.875rem;
+
+  &:focus {
+    border-color: var(--color-accent);
+  }
+}

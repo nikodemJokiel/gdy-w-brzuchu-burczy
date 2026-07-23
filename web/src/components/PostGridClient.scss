@@ -1,0 +1,133 @@
+/* Post Grid Layout — Top bar for filter, full-width panel, then grid */
+
+.post-grid-layout {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1rem;
+
+  &__top {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+  }
+
+  &__filter-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    font-size: 0.875rem;
+    color: var(--color-text);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+
+    &:hover, &.is-active {
+      border-color: var(--color-heading);
+      background-color: var(--color-heading);
+      color: var(--color-bg);
+    }
+  }
+
+  &__filter-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-accent);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+  }
+
+  &__filter-container {
+    display: none;
+    width: 100%;
+    margin-bottom: 2rem;
+    
+    &.is-open {
+      display: block;
+      animation: filter-slide-down 0.2s ease-out;
+    }
+  }
+
+  &__empty {
+    text-align: center;
+    padding: 4rem 1rem;
+    color: var(--color-muted);
+
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1.25rem;
+      background: transparent;
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.875rem;
+
+      &:hover {
+        border-color: var(--color-text);
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  &__load-more {
+    padding: 0.625rem 1.5rem;
+    background: transparent;
+    color: var(--color-muted);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 0.01em;
+
+    &:hover {
+      border-color: var(--color-text);
+      color: var(--color-text);
+    }
+  }
+}
+
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@keyframes filter-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
