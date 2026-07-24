@@ -41,10 +41,6 @@ const description = post.excerpt || `Przepis na ${post.title}`;
         {post.tags?.map((tag: any) => (
           <span data-pagefind-filter={tag.category}>{tag.name}</span>
         ))}
-        {post.mealType && <span data-pagefind-filter="mealType">{post.mealType}</span>}
-        {post.diet?.map((d: string) => (
-          <span data-pagefind-filter="diet">{d}</span>
-        ))}
       </div>
       
       <div class="recipe-content">

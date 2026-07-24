@@ -36,8 +36,6 @@ export const RECIPES_QUERY = `*[_type == "recipe"] | order(publishedAt desc) {
   mainImage,
   gallery,
   "tags": tags[]->{ name, slug, category },
-  mealType,
-  diet,
   isSponsored,
   prepTime,
   cookTime
@@ -56,9 +54,7 @@ export const RECIPE_BY_SLUG_QUERY = `*[_type == "recipe" && slug.current == $slu
   instructions,
   nutritionInfo,
   "tags": tags[]->{ name, slug, category },
-  mealType,
   mainIngredient,
-  diet,
   prepTime,
   cookTime,
   servings,

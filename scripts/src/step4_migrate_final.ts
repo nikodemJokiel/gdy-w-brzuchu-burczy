@@ -6,7 +6,6 @@ import { htmlToPortableText } from "./htmlToPortableText.js";
 import axios from "axios";
 import { basename } from "path";
 
-// Load environment variables
 dotenv.config();
 
 const PROJECT_ID = process.env.SANITY_PROJECT_ID;
@@ -26,26 +25,21 @@ const client = createClient({
   useCdn: false,
 });
 
-interface ExtractedData {
+interface ExportedRecipe {
   id: string;
   title: string;
-  legacyUrl: string;
+  slug: string;
   publishedAt: string;
-  rawCategories: string[];
   bodyHtml: string;
-  ingredientsList: string[];
-  instructionsHtml: string;
-  images: { url: string; alt: string }[];
-  comments: any[];
+  ingredients: string[];
+  instructions: string;
+  mainImageUrl: string;
+  mainImageAlt: string;
+  allImages: { url: string; alt: string }[];
+  tags: string[];
+  legacyUrl: string;
 }
 
-interface TagData {
-  id: string;
-  mealType: string[];
-  diet: string[];
-}
-
-// Helpers for tag normalization
 function normalizeTagName(tag: string): string {
   return tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase();
 }
@@ -73,6 +67,7 @@ function determineTagCategory(tagName: string): string {
 }
 
 async function uploadImage(url: string, alt: string): Promise<any> {
+  if (!url) return null;
   try {
     const res = await axios.get(url, { responseType: 'stream' });
     const filename = basename(url.split("?")[0]) || "image.jpg";
@@ -94,22 +89,17 @@ async function uploadImage(url: string, alt: string): Promise<any> {
 }
 
 async function upload() {
-  const postsRaw = fs.readFileSync("migration-data.json", "utf-8");
-  const tagsRaw = fs.readFileSync("ai-tags.json", "utf-8");
+  const postsRaw = fs.readFileSync("recipes-full-export.json", "utf-8");
+  const allPosts: ExportedRecipe[] = JSON.parse(postsRaw);
   
-  const posts: ExtractedData[] = JSON.parse(postsRaw);
-  const aiTags: TagData[] = JSON.parse(tagsRaw);
+  const posts = allPosts;
   
-  const aiTagMap = new Map<string, TagData>();
-  for (const t of aiTags) {
-    aiTagMap.set(t.id, t);
-  }
-  
-  console.log(`Starting upload for ${posts.length} posts...`);
+  console.log(`Starting upload for ALL ${posts.length} posts...`);
   
   const globalTags = new Map<string, {name: string, category: string, slug: string}>();
   for (const post of posts) {
-    for (const rawCat of post.rawCategories) {
+    const rawTags = post.tags || [];
+    for (const rawCat of rawTags) {
       const normalizedName = normalizeTagName(rawCat);
       const tagSlug = slugify(normalizedName, { lower: true, strict: true });
       if (!globalTags.has(tagSlug)) {
@@ -120,15 +110,12 @@ async function upload() {
   
   for (let i = 0; i < posts.length; i++) {
     const post = posts[i];
-    const aiData = aiTagMap.get(post.id);
-    
-
-
     console.log(`\n[${i + 1}/${posts.length}] Uploading: ${post.title}`);
     
     // Create Tag references
     const tagRefs = [];
-    for (const rawCat of post.rawCategories) {
+    const rawTags = post.tags || [];
+    for (const rawCat of rawTags) {
       const normalizedName = normalizeTagName(rawCat);
       const tagSlug = slugify(normalizedName, { lower: true, strict: true });
       const tagId = `tag-${tagSlug}`;
@@ -150,37 +137,46 @@ async function upload() {
     }
     
     // Zapisywanie obrazków do Sanity (mainImage + gallery)
-    const uploadedImages = [];
-    if (post.images && post.images.length > 0) {
-      for (const imgData of post.images) {
+    let mainImage = undefined;
+    if (post.mainImageUrl) {
+        mainImage = await uploadImage(post.mainImageUrl, post.mainImageAlt);
+    }
+
+    const gallery = [];
+    if (post.allImages && post.allImages.length > 0) {
+      for (const imgData of post.allImages) {
+        // Skip duplicate of mainImage
+        if (imgData.url === post.mainImageUrl) continue;
         const uploaded = await uploadImage(imgData.url, imgData.alt);
         if (uploaded) {
           uploaded._key = Math.random().toString(36).substring(2, 9);
-          uploadedImages.push(uploaded);
+          gallery.push(uploaded);
         }
       }
     }
     
-    const mainImage = uploadedImages.length > 0 ? uploadedImages[0] : undefined;
-    const gallery = uploadedImages.length > 1 ? uploadedImages.slice(1) : undefined;
-    
-    // Body HTML -> PortableText (już nie ma obrazków inline)
+    // Body HTML -> PortableText
     const portableTextBody = await htmlToPortableText(post.bodyHtml, client);
     
-    // Create excerpt from body text
-    const firstTextBlock = portableTextBody.find((b: any) => b._type === "block" && b.children && b.children.length > 0);
+    // Process instructions (bez obrazków inline)
+    let portableTextInstructions = undefined;
+    if (post.instructions) {
+      portableTextInstructions = await htmlToPortableText(post.instructions, client);
+    }
+
+    // Create excerpt from body text, fallback to instructions
+    let firstTextBlock = portableTextBody.find((b: any) => b._type === "block" && b.children && b.children.length > 0);
+    if (!firstTextBlock && portableTextInstructions) {
+      firstTextBlock = portableTextInstructions.find((b: any) => b._type === "block" && b.children && b.children.length > 0);
+    }
+    
     let excerpt = "";
     if (firstTextBlock) {
       excerpt = firstTextBlock.children.map((c: any) => c.text).join("").substring(0, 197) + "...";
     }
     
-    // Process instructions (bez obrazków inline)
-    let portableTextInstructions = undefined;
-    if (post.instructionsHtml) {
-      portableTextInstructions = await htmlToPortableText(post.instructionsHtml, client);
-    }
-    
-    const structuredIngredients = post.ingredientsList.map(ing => ({
+    // Map ingredients directly into the name field of the sanity object
+    const structuredIngredients = (post.ingredients || []).map(ing => ({
       _key: Math.random().toString(36).substring(2, 9),
       name: ing,
       amount: "",
@@ -188,7 +184,7 @@ async function upload() {
       group: ""
     }));
     
-    const slug = slugify(post.title, { lower: true, strict: true });
+    const slug = post.slug || slugify(post.title, { lower: true, strict: true });
     
     const doc = {
       _id: `recipe-${slug}`,
@@ -197,21 +193,13 @@ async function upload() {
       slug: { _type: "slug", current: slug },
       publishedAt: post.publishedAt,
       mainImage: mainImage,
-      gallery: gallery, // Tablica
+      gallery: gallery.length > 0 ? gallery : undefined,
       excerpt: excerpt,
       body: portableTextBody,
       instructions: portableTextInstructions,
       ingredients: structuredIngredients,
       tags: tagRefs,
       legacyBloggerUrl: post.legacyUrl,
-      legacyComments: post.comments.map(c => ({
-        _key: Math.random().toString(36).substring(2, 9),
-        author: c.author,
-        publishedAt: c.publishedAt,
-        content: c.content
-      })),
-      mealType: aiData?.mealType || [],
-      diet: aiData?.diet || []
     };
     
     console.log(`Saving to Sanity: ${post.title}`);

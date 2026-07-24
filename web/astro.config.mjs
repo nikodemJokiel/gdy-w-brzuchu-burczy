@@ -34,6 +34,9 @@ export default defineConfig({
   adapter: cloudflare(),
 
   vite: {
+    optimizeDeps: {
+      include: ["react", "react-dom", "react-dom/client"],
+    },
     css: {
       preprocessorOptions: {
         scss: {

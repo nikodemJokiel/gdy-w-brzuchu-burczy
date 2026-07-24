@@ -194,43 +194,10 @@ export default defineType({
       ],
     }),
     defineField({
-      name: "mealType",
-      title: "Rodzaj posiłku",
-      type: "string",
-      group: "meta",
-      options: {
-        list: [
-          { title: "Śniadanie", value: "breakfast" },
-          { title: "Obiad", value: "lunch" },
-          { title: "Kolacja", value: "dinner" },
-          { title: "Deser", value: "dessert" },
-          { title: "Przekąska", value: "snack" },
-          { title: "Napój", value: "drink" },
-        ],
-      },
-    }),
-    defineField({
       name: "mainIngredient",
       title: "Główny składnik",
       type: "string",
       group: "meta",
-    }),
-    defineField({
-      name: "diet",
-      title: "Dieta",
-      type: "array",
-      group: "meta",
-      of: [{ type: "string" }],
-      options: {
-        list: [
-          { title: "Bezglutenowe", value: "gluten-free" },
-          { title: "Bez mleka", value: "dairy-free" },
-          { title: "Wegetariańskie", value: "vegetarian" },
-          { title: "Wegańskie", value: "vegan" },
-          { title: "Bez cukru", value: "sugar-free" },
-          { title: "Bez jajek", value: "egg-free" },
-        ],
-      },
     }),
     defineField({
       name: "isSponsored",

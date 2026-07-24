@@ -19,9 +19,9 @@ export default function HeaderLeft() {
       <div className="header__left">
         <button
           className="header__hamburger"
-          aria-label="Otwórz menu"
+          aria-label={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
           aria-expanded={isMenuOpen}
-          onClick={() => setIsMenuOpen(true)}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           <span className="header__hamburger-line"></span>
           <span className="header__hamburger-line"></span>

@@ -33,8 +33,7 @@ import HeaderLeft from "./HeaderLeft.tsx";
     right: 0;
     z-index: $z-header;
     height: $header-height;
-    background-color: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
+    background-color: transparent;
     transition: background-color $transition-normal;
 
     &__inner {
@@ -43,6 +42,8 @@ import HeaderLeft from "./HeaderLeft.tsx";
       justify-content: space-between;
       height: 100%;
       padding: 0 $space-12;
+      background-color: var(--color-bg);
+      border-bottom: 1px solid var(--color-border);
       @media (max-width: 640px) {
         padding: 0 $space-2;
       }

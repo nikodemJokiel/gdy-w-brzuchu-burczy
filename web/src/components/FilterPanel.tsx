@@ -1,67 +1,71 @@
 import React from "react";
 import "./FilterPanel.scss";
+import { TAXONOMY } from "../lib/taxonomy";
 
 export interface FilterState {
-  mealTypes: string[];
-  diets: string[];
+  selectedCategories: string[];
+  selectedTags: string[];
+  matchMode: "OR" | "AND";
 }
 
 export interface FilterPanelProps {
   filters: FilterState;
   onToggleFilter: (category: keyof FilterState, value: string) => void;
+  onChangeMode: (mode: "OR" | "AND") => void;
   isOpen: boolean;
   onClose: () => void;
 }
 
-const MEAL_TYPES = [
-  { value: "breakfast", label: "Śniadania" },
-  { value: "lunch", label: "Obiady" },
-  { value: "dinner", label: "Kolacje" },
-  { value: "dessert", label: "Desery" },
-  { value: "snack", label: "Przekąski" },
-  { value: "drink", label: "Napoje" },
-];
-
-const DIETS = [
-  { value: "vegetarian", label: "Wegetariańskie" },
-  { value: "vegan", label: "Wegańskie" },
-  { value: "gluten-free", label: "Bezglutenowe" },
-  { value: "dairy-free", label: "Bez mleka" },
-  { value: "sugar-free", label: "Bez cukru" },
-];
-
-export default function FilterPanel({ filters, onToggleFilter, isOpen, onClose }: FilterPanelProps) {
-  if (!isOpen) return null;
-
-  const renderPills = (category: keyof FilterState, options: { value: string; label: string }[]) => (
-    <div className="filter-panel__group">
-      {options.map((opt) => {
-        const isSelected = filters[category].includes(opt.value);
-        return (
-          <button
-            key={opt.value}
-            className={`filter-panel__pill ${isSelected ? "is-active" : ""}`}
-            onClick={() => onToggleFilter(category, opt.value)}
-            aria-pressed={isSelected}
-          >
-            {opt.label}
-          </button>
-        );
-      })}
-    </div>
-  );
-
+export default function FilterPanel({ filters, onToggleFilter, onChangeMode, isOpen, onClose }: FilterPanelProps) {
   return (
     <div className="filter-panel">
-      <div className="filter-panel__section">
-        <h4 className="filter-panel__label">Rodzaj posiłku</h4>
-        {renderPills("mealTypes", MEAL_TYPES)}
-      </div>
+      {TAXONOMY.map(section => {
+        const renderCategory = (category: any) => {
+          const isCategorySelected = filters.selectedCategories.includes(category.id);
+          const hasSelectedTags = category.tags?.some((tag: string) => filters.selectedTags.includes(tag));
+          const pillClass = `filter-panel__pill ${isCategorySelected ? "is-active" : (hasSelectedTags ? "is-partially-active" : "")}`;
+          
+          return (
+            <div key={category.id} className={`filter-panel__category-card filter-panel__category-card--${category.id}`}>
+              <button
+                className={pillClass}
+                onClick={() => onToggleFilter("selectedCategories", category.id)}
+                aria-pressed={isCategorySelected}
+              >
+                {category.icon && <span className="filter-panel__pill-icon"><category.icon size={16} /></span>}
+                {category.label}
+              </button>
+              
+              {!category.hideSubTags && category.tags && category.tags.length > 0 && (
+                <div className="filter-panel__sub-tags">
+                  {category.tags.map(tag => {
+                    const isTagSelected = filters.selectedTags.includes(tag);
+                    return (
+                      <button
+                        key={tag}
+                        className={`filter-panel__sub-pill ${isTagSelected ? "is-active" : ""}`}
+                        onClick={() => onToggleFilter("selectedTags", tag)}
+                        aria-pressed={isTagSelected}
+                      >
+                        {tag}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          );
+        };
 
-      <div className="filter-panel__section">
-        <h4 className="filter-panel__label">Diety</h4>
-        {renderPills("diets", DIETS)}
-      </div>
+        return (
+          <div key={section.id} className={`filter-panel__section filter-panel__section--${section.id}`}>
+            <h4 className="filter-panel__label">{section.label}</h4>
+            <div className="filter-panel__grid">
+              {section.categories.map(renderCategory)}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

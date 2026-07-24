@@ -152,20 +152,6 @@ export async function htmlToPortableText(
           text: "\n",
           marks: [],
         });
-      } else if (node.nodeName === "B" || node.nodeName === "STRONG") {
-        currentTextBlock.children.push({
-          _type: "span",
-          _key: generateKey(),
-          text: node.textContent || "",
-          marks: ["strong"],
-        });
-      } else if (node.nodeName === "I" || node.nodeName === "EM") {
-        currentTextBlock.children.push({
-          _type: "span",
-          _key: generateKey(),
-          text: node.textContent || "",
-          marks: ["em"],
-        });
       } else if (node.nodeName === "DIV" || node.nodeName === "P") {
         // New block
         if (currentTextBlock.children.length > 0) {
