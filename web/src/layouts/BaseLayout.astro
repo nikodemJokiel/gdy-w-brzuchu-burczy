@@ -2,6 +2,8 @@
 import "../styles/global.scss";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import ScrollToTop from "../components/ScrollToTop.tsx";
+import CookieConsent from "../components/CookieConsent.tsx";
 
 interface Props {
   title: string;
@@ -75,6 +77,8 @@ const resolvedCanonical = canonicalUrl || Astro.url.href;
     <main class="main-content" id="main-content">
       <slot />
     </main>
+    <ScrollToTop client:idle />
+    <CookieConsent client:idle />
     <Footer />
   </body>
 </html>

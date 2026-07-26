@@ -4,6 +4,7 @@ import tag from "./tag";
 import siteSettings from "./siteSettings";
 import aboutPage from "./aboutPage";
 import collaborationPage from "./collaborationPage";
+import comment from "./comment";
 
 /**
  * Central schema registry — all document and object types
@@ -19,4 +20,5 @@ export const schemaTypes = [
   siteSettings,
   aboutPage,
   collaborationPage,
+  comment,
 ];

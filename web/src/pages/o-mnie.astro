@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "O mnie";
+const description = "Poznaj autorkę bloga Gdy w brzuchu burczy. Kilka słów o mojej pasji do gotowania.";
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="container static-page">
+    <header class="static-page__header">
+      <h1>O mnie</h1>
+    </header>
+    <div class="static-page__content">
+      <p>Cześć! Ta sekcja jest w trakcie przygotowania. Wkrótce dowiesz się tu więcej o mojej kulinarnie pasji i o tym, dlaczego "Gdy w brzuchu burczy".</p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style lang="scss">
+  .static-page {
+    padding-top: calc(#{$header-height} + #{$space-12});
+    padding-bottom: $space-20;
+    max-width: 800px;
+    
+    &__header {
+      margin-bottom: $space-8;
+      text-align: center;
+      
+      h1 {
+        font-family: $font-heading;
+        font-size: $font-size-4xl;
+        color: var(--color-heading);
+      }
+    }
+    
+    &__content {
+      font-size: $font-size-base;
+      line-height: $line-height-relaxed;
+      color: var(--color-text);
+      
+      p {
+        margin-bottom: $space-4;
+      }
+    }
+  }
+</style>

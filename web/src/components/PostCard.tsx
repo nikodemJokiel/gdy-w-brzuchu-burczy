@@ -70,6 +70,7 @@ export default function PostCard({ slug, title, date, excerpt, mainImage, galler
                         alt={img.alt || title}
                         className="post-card__image"
                         loading="lazy"
+                        onContextMenu={(e) => e.preventDefault()}
                       />
                     ) : (
                       <div className="post-card__image" style={{ background: "var(--color-surface)" }} />
@@ -118,6 +119,7 @@ export default function PostCard({ slug, title, date, excerpt, mainImage, galler
               alt={title}
               className="post-card__image"
               loading="lazy"
+              onContextMenu={(e) => e.preventDefault()}
             />
           </a>
         ) : (

@@ -10,7 +10,7 @@ const posts = await sanityClient.fetch(RECIPES_QUERY);
 ---
 
 <BaseLayout title={title} description={description}>
-  <main class="container" style="padding-top: 2rem; padding-bottom: 4rem;">
+  <main class="container" style="padding-bottom: 1rem;">
     <PostGridClient client:load initialPosts={posts} />
   </main>
 </BaseLayout>

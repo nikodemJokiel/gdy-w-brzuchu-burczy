@@ -257,8 +257,8 @@ export default defineType({
 
     // --- Carousel group ---
     defineField({
-      name: "featuredForCarousel",
-      title: "Wyróżniony w karuzeli",
+      name: "featuredForCarouselLight",
+      title: "Wyróżniony w karuzeli (Jasna)",
       type: "boolean",
       group: "carousel",
       initialValue: false,
@@ -269,7 +269,14 @@ export default defineType({
       type: "image",
       group: "carousel",
       options: { hotspot: true },
-      hidden: ({ document }) => !document?.featuredForCarousel,
+      hidden: ({ document }) => !document?.featuredForCarouselLight,
+    }),
+    defineField({
+      name: "featuredForCarouselDark",
+      title: "Wyróżniony w karuzeli (Ciemna)",
+      type: "boolean",
+      group: "carousel",
+      initialValue: false,
     }),
     defineField({
       name: "carouselImageDark",
@@ -277,7 +284,7 @@ export default defineType({
       type: "image",
       group: "carousel",
       options: { hotspot: true },
-      hidden: ({ document }) => !document?.featuredForCarousel,
+      hidden: ({ document }) => !document?.featuredForCarouselDark,
     }),
   ],
 

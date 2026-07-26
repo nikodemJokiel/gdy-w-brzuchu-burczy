@@ -55,57 +55,150 @@
   display: flex;
   align-items: center;
   position: relative;
-}
 
-.header__search-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem; /* $space-2 */
-  border-radius: 0.25rem; /* $radius-sm */
-  color: var(--color-text);
-  transition: background-color 0.2s ease;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  z-index: 2;
-
-  &:hover {
-    background-color: var(--color-surface);
+  &-icon-btn {
+    display: none; 
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    color: var(--color-text);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: var(--color-surface);
+    }
   }
-}
 
-.header__search-form {
-  position: absolute;
-  left: 100%;
-  top: 50%;
-  transform: translateY(-50%) translateX(-10px);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  background: var(--color-bg);
-  padding: 0.25rem;
-  border-radius: 20px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-
-  .header__search.is-active & {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(-50%) translateX(0);
+  &-form {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
-}
 
-.header__search-input {
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
-  color: var(--color-text);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  outline: none;
-  width: 200px;
-  font-size: 0.875rem;
+  &-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
 
-  &:focus {
-    border-color: var(--color-accent);
+    &:focus-within .header__search-input {
+      border-color: var(--color-text);
+    }
+
+    @media (min-width: 769px) {
+      &:focus-within .header__search-input {
+        width: 300px;
+      }
+    }
+  }
+
+  &-input-icon {
+    position: absolute;
+    left: 0.75rem;
+    color: var(--color-muted);
+  }
+
+  &-input {
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    padding: 0.5rem 2.25rem 0.5rem 2.25rem;
+    border-radius: 20px;
+    outline: none;
+    width: 250px;
+    font-size: 0.875rem;
+    transition: width 0.3s ease, border-color 0.2s ease;
+
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-decoration,
+    &::-webkit-search-results-button,
+    &::-webkit-search-results-decoration {
+      display: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+  }
+
+  &-clear-btn {
+    position: absolute;
+    right: 0.75rem;
+    color: var(--color-muted);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--color-text);
+    }
+  }
+
+  &-submit-btn {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    &-icon-btn {
+      display: flex;
+    }
+
+    &-form {
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      background: var(--color-bg);
+      padding: 1rem;
+      border-bottom: 1px solid var(--color-border);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      z-index: 100;
+      
+      opacity: 0;
+      transform: translateY(-10px);
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    &.is-active &-form {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    &-input {
+      width: 100%;
+      &:focus {
+        width: 100%;
+      }
+    }
+
+    &-input-wrapper {
+      flex: 1;
+    }
+
+    &-submit-btn {
+      display: block;
+      background: transparent;
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        border-color: var(--color-heading);
+        background-color: var(--color-heading);
+        color: var(--color-bg);
+      }
+    }
   }
 }

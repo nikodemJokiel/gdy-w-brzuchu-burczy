@@ -1,36 +1,25 @@
 ---
-/**
- * Footer component — SEO-optimized footer with copyright,
- * privacy policy link, social links, and category navigation.
- */
 const currentYear = new Date().getFullYear();
 ---
 
 <footer class="footer" id="site-footer">
   <div class="footer__inner container">
-    <!-- Logo & description -->
     <div class="footer__brand">
       <a href="/" class="footer__logo">
-        <span class="footer__logo-icon">🍳</span>
         <span class="footer__logo-text">Gdy w brzuchu burczy</span>
       </a>
-      <p class="footer__description">
-        Blog kulinarny ze sprawdzonymi, pysznymi przepisami. Gotowanie z pasją
-        od ponad 10 lat.
-      </p>
     </div>
 
     <!-- Category links for SEO -->
     <nav class="footer__nav" aria-label="Kategorie przepisów">
       <h3 class="footer__heading">Kategorie</h3>
       <ul class="footer__links">
-        <li><a href="/przepisy?meal=breakfast">Śniadania</a></li>
-        <li><a href="/przepisy?meal=lunch">Obiady</a></li>
-        <li><a href="/przepisy?meal=dinner">Kolacje</a></li>
-        <li><a href="/przepisy?meal=dessert">Desery</a></li>
-        <li><a href="/przepisy?meal=snack">Przekąski</a></li>
-        <li><a href="/przepisy?diet=vegetarian">Wegetariańskie</a></li>
-        <li><a href="/przepisy?diet=gluten-free">Bezglutenowe</a></li>
+        <li><a href="/przepisy?category=light">Lekko i Szybko</a></li>
+        <li><a href="/przepisy?category=meatless">Bezmięsne</a></li>
+        <li><a href="/przepisy?category=cakes">Ciasta</a></li>
+        <li><a href="/przepisy?category=desserts">Desery</a></li>
+        <li><a href="/przepisy?category=christmas">Boże Narodzenie</a></li>
+        <li><a href="/przepisy?category=easter">Wielkanoc</a></li>
       </ul>
     </nav>
 
@@ -49,20 +38,22 @@ const currentYear = new Date().getFullYear();
       <h3 class="footer__heading">Obserwuj</h3>
       <div class="footer__social-links">
         <a
-          href="https://facebook.com"
+          href="https://www.facebook.com/gdywbrzuchuburczy.blog/"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Facebook"
         >
-          Facebook
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          <span>Facebook</span>
         </a>
         <a
-          href="https://instagram.com"
+          href="https://www.instagram.com/gdywbrzuchuburczy/"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Instagram"
         >
-          Instagram
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+          <span>Instagram</span>
         </a>
       </div>
     </div>
@@ -85,7 +76,6 @@ const currentYear = new Date().getFullYear();
 
 <style lang="scss">
   .footer {
-    margin-top: $space-20;
     border-top: 1px solid var(--color-border);
     background-color: var(--color-surface);
 
@@ -162,12 +152,16 @@ const currentYear = new Date().getFullYear();
     &__social-links {
       display: flex;
       flex-direction: column;
-      gap: $space-2;
+      gap: $space-3;
 
       a {
+        display: inline-flex;
+        align-items: center;
+        gap: $space-2;
         font-size: $font-size-sm;
         color: var(--color-muted);
         transition: color $transition-fast;
+        text-decoration: none;
 
         &:hover {
           color: var(--color-accent);

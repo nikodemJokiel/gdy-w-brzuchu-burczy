@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Współpraca";
+const description = "Zapraszam do współpracy z blogiem Gdy w brzuchu burczy. Zobacz, co możemy razem zrobić.";
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="container static-page">
+    <header class="static-page__header">
+      <h1>Współpraca</h1>
+    </header>
+    <div class="static-page__content">
+      <p>Ta strona jest w trakcie przygotowywania. Niedługo znajdziesz tu szczegóły dotyczące możliwości współpracy.</p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style lang="scss">
+  .static-page {
+    padding-top: calc(#{$header-height} + #{$space-12});
+    padding-bottom: $space-20;
+    max-width: 800px;
+    
+    &__header {
+      margin-bottom: $space-8;
+      text-align: center;
+      
+      h1 {
+        font-family: $font-heading;
+        font-size: $font-size-4xl;
+        color: var(--color-heading);
+      }
+    }
+    
+    &__content {
+      font-size: $font-size-base;
+      line-height: $line-height-relaxed;
+      color: var(--color-text);
+      
+      p {
+        margin-bottom: $space-4;
+      }
+    }
+  }
+</style>

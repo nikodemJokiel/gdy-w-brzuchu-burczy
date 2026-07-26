@@ -12,8 +12,18 @@
 }
 
 .main-content {
-  padding-top: calc($header-height + $space-8);
+  padding-top: calc($header-height + $space-6);
   min-height: 100vh;
+
+  @media (max-width: $bp-tablet) {
+    padding-top: calc($header-height + $space-2);
+  }
+}
+
+body.mobile-search-open .main-content {
+  @media (max-width: 768px) {
+    padding-top: calc($header-height + $space-2 + 74px);
+  }
 }
 
 // Post grid — 3 columns desktop, 2 tablet, 1 mobile
@@ -37,7 +47,7 @@
 .recipe-layout {
   display: grid;
   grid-template-columns: 300px 1fr;
-  gap: $space-10;
+  gap: $space-3;
 
   @media (max-width: $bp-tablet) {
     grid-template-columns: 1fr;

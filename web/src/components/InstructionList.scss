@@ -1,0 +1,76 @@
+@use "../styles/variables" as *;
+
+.instruction-list {
+  .instruction-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--color-border);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+
+    &:first-child {
+      border-top: none;
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    &__bullet {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      font-size: 1.5rem;
+      line-height: 1;
+      color: var(--color-heading); // default bullet color
+      transition: color 0.2s ease;
+      
+      &.is-checked {
+        color: #10b981; // green checkmark
+        font-size: 1.25rem;
+      }
+    }
+
+    &__text {
+      flex-grow: 1;
+      color: var(--color-text);
+      transition: all 0.2s ease;
+      margin: 0; // reset default p margin
+    }
+
+    &:hover .instruction-step__text {
+      color: var(--color-heading);
+    }
+
+    &.is-checked {
+      .instruction-step__text {
+        text-decoration: line-through;
+        color: var(--color-muted);
+      }
+    }
+
+    &--smacznego {
+      cursor: default;
+      border-top: none;
+      margin-top: 0.75rem;
+      padding-top: 0;
+      justify-content: center;
+      text-align: center;
+      
+      .instruction-step__text {
+        font-family: $font-heading;
+        font-size: 1.25rem;
+        color: var(--color-text);
+      }
+
+      &:hover .instruction-step__text {
+        color: var(--color-text);
+      }
+    }
+  }
+}

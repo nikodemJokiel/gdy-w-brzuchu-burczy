@@ -48,6 +48,7 @@ export const RECIPE_BY_SLUG_QUERY = `*[_type == "recipe" && slug.current == $slu
   slug,
   publishedAt,
   mainImage,
+  gallery,
   excerpt,
   body,
   ingredients,
@@ -61,9 +62,17 @@ export const RECIPE_BY_SLUG_QUERY = `*[_type == "recipe" && slug.current == $slu
   isSponsored,
   legacyBloggerUrl,
   legacyComments,
-  featuredForCarousel,
+  featuredForCarouselLight,
+  featuredForCarouselDark,
   carouselImageLight,
-  carouselImageDark
+  carouselImageDark,
+  "comments": *[_type == "comment" && recipe._ref == ^._id && isApproved == true] | order(createdAt asc) {
+    _id,
+    name,
+    text,
+    createdAt,
+    "parentId": parentComment._ref
+  }
 }`;
 
 /** Fetch all tags grouped by category */
@@ -78,11 +87,13 @@ export const TAGS_QUERY = `*[_type == "tag"] | order(category asc, name asc) {
 export const SITE_SETTINGS_QUERY = `*[_type == "siteSettings"][0]`;
 
 /** Fetch featured carousel recipes */
-export const CAROUSEL_QUERY = `*[_type == "recipe" && featuredForCarousel == true] | order(publishedAt desc) [0...5] {
+export const CAROUSEL_QUERY = `*[_type == "recipe" && (featuredForCarouselLight == true || featuredForCarouselDark == true)] | order(publishedAt desc) [0...5] {
   _id,
   title,
   slug,
   excerpt,
+  featuredForCarouselLight,
+  featuredForCarouselDark,
   carouselImageLight,
   carouselImageDark
 }`;

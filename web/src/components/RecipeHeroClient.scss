@@ -1,0 +1,213 @@
+.recipe-hero-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  @media (min-width: 1024px) {
+    padding-top: 2rem; /* Miejsce na górną połowę okienka */
+  }
+}
+
+.recipe-hero-header {
+  position: relative;
+  text-align: center;
+  padding: 0.25rem 0 0.75rem; // Reduced top padding on mobile
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 10;
+
+  @media (min-width: 1024px) {
+    position: absolute;
+    top: 1rem;
+    /* Ośrodek okienka na górnej krawędzi karuzeli */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--color-bg);
+    padding: 1rem 2rem;
+    width: max-content;
+    max-width: 95vw;
+  }
+}
+
+.recipe-hero-date {
+  font-size: 0.95rem;
+  color: var(--color-muted);
+  font-family: $font-body;
+}
+
+.recipe-hero-title {
+  font-family: $font-heading;
+  font-size: 1.35rem; // Zmniejszony rozmiar na mobilkach
+  font-weight: 500;
+  color: var(--color-text);
+  margin: 0;
+  line-height: 1.2;
+
+  @media (min-width: 1024px) {
+    /* 150vw / ilość znaków zapewnia optymalne skalowanie; 0.5 to ok. szerokość znaku w stosunku do wysokości */
+    font-size: clamp(1rem, calc(150vw / var(--char-count)), 2rem);
+    white-space: nowrap;
+  }
+}
+
+.hero-carousel-wrapper {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background-color: var(--color-surface);
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.hero-carousel-track {
+  display: flex;
+  position: relative;
+  gap: 1.5rem;
+  height: 65vh;
+  min-height: 400px;
+  max-height: 700px;
+  width: 100%;
+  overflow-x: auto;
+  cursor: grab;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &.is-dragging {
+    cursor: grabbing;
+    scroll-behavior: auto;
+  }
+
+  @media (max-width: 1023px) {
+    height: 100vw;
+    min-height: unset;
+    max-height: unset;
+    gap: 0;
+    scroll-snap-type: x mandatory;
+    cursor: default;
+  }
+}
+
+.hero-carousel-image {
+  height: 100%;
+  width: auto;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  border-radius: 0;
+
+  @media (min-width: 1024px) {
+    cursor: zoom-in;
+  }
+
+  @media (max-width: 1023px) {
+    width: 100vw;
+    height: 100vw;
+    object-fit: contain;
+    flex: 0 0 100vw;
+    scroll-snap-align: center;
+  }
+}
+
+.hero-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    cursor: default;
+  }
+}
+
+.hero-lightbox-close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 2.5rem;
+  cursor: pointer;
+  z-index: 1001;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.hero-carousel-dots {
+  position: absolute;
+  bottom: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+  z-index: 2;
+  pointer-events: none;
+  margin: 0;
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}
+
+.hero-carousel-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.45);
+  transition: background-color 0.2s ease;
+
+  &.is-active {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+.hero-carousel-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  padding: 0;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.hero-carousel-tag {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 0;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  font-family: $font-body;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: var(--color-text);
+    border-color: var(--color-text);
+    color: var(--color-bg);
+  }
+}

@@ -1,0 +1,106 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Polityka prywatności";
+const description = "Polityka prywatności serwisu Gdy w brzuchu burczy.";
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="container static-page">
+    <header class="static-page__header">
+      <h1>Polityka prywatności</h1>
+    </header>
+    <div class="static-page__content">
+      <h2>1. Informacje ogólne</h2>
+      <p>
+        Niniejsza polityka prywatności określa zasady przetwarzania i ochrony danych osobowych przekazanych przez Użytkowników w związku z korzystaniem z serwisu <strong>Gdy w brzuchu burczy</strong>.
+      </p>
+
+      <h2>2. Administrator danych</h2>
+      <p>
+        Administratorem danych osobowych zawartych w serwisie jest [Imię i Nazwisko / Nazwa firmy], z siedzibą w [Adres, Miasto], NIP: [Numer NIP, jeśli dotyczy], e-mail: [Adres e-mail].
+      </p>
+
+      <h2>3. Cel zbierania danych</h2>
+      <p>
+        Dane osobowe podane przez Użytkownika (np. adres e-mail, imię) przetwarzane są wyłącznie w celach:
+      </p>
+      <ul>
+        <li>Odpowiedzi na wiadomości przesłane przez formularz kontaktowy lub e-mail (art. 6 ust. 1 lit. f RODO).</li>
+        <li>Wysyłki newslettera, jeśli Użytkownik wyraził na to zgodę (art. 6 ust. 1 lit. a RODO).</li>
+        <li>Komentowania wpisów na blogu.</li>
+      </ul>
+
+      <h2>4. Pliki cookies (ciasteczka)</h2>
+      <p>
+        Serwis korzysta z plików cookies. Są to niewielkie pliki tekstowe wysyłane przez serwer www i przechowywane przez oprogramowanie komputera przeglądarki. Zbierane informacje dotyczą m.in. adresu IP, typu wykorzystywanej przeglądarki, języka, rodzaju systemu operacyjnego. Pliki cookies wykorzystywane są w celu:
+      </p>
+      <ul>
+        <li>Zapewnienia prawidłowego działania strony.</li>
+        <li>Tworzenia anonimowych statystyk (np. za pomocą Google Analytics), które pomagają zrozumieć, w jaki sposób Użytkownicy korzystają ze strony internetowej.</li>
+      </ul>
+
+      <h2>5. Prawa Użytkownika</h2>
+      <p>
+        Użytkownikowi przysługuje prawo do dostępu do swoich danych, ich sprostowania, usunięcia lub ograniczenia przetwarzania, prawo sprzeciwu, prawo wniesienia skargi do organu nadzorczego (Prezes Urzędu Ochrony Danych Osobowych).
+      </p>
+
+      <h2>6. Udostępnianie danych</h2>
+      <p>
+        Dane Użytkowników nie są sprzedawane ani udostępniane podmiotom trzecim w celach marketingowych bez ich wyraźnej zgody. Dane mogą być powierzane do przetwarzania podmiotom technologicznym (np. firmie hostingowej).
+      </p>
+
+      <h2>7. Zmiany w Polityce Prywatności</h2>
+      <p>
+        Administrator zastrzega sobie prawo do wprowadzania zmian w polityce prywatności serwisu, na co może wpłynąć rozwój technologii internetowej oraz ewentualne zmiany prawa w zakresie ochrony danych osobowych.
+      </p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style lang="scss">
+  .static-page {
+    padding-top: calc(#{$header-height} + #{$space-12});
+    padding-bottom: $space-20;
+    max-width: 800px;
+    
+    &__header {
+      margin-bottom: $space-8;
+      text-align: center;
+      
+      h1 {
+        font-family: $font-heading;
+        font-size: $font-size-4xl;
+        color: var(--color-heading);
+      }
+    }
+    
+    &__content {
+      font-size: $font-size-base;
+      line-height: $line-height-relaxed;
+      color: var(--color-text);
+      
+      h2 {
+        font-family: $font-heading;
+        font-size: $font-size-xl;
+        color: var(--color-heading);
+        margin-top: $space-8;
+        margin-bottom: $space-4;
+      }
+
+      p {
+        margin-bottom: $space-4;
+      }
+
+      ul {
+        margin-left: $space-6;
+        margin-bottom: $space-4;
+        list-style-type: disc;
+
+        li {
+          margin-bottom: $space-2;
+        }
+      }
+    }
+  }
+</style>

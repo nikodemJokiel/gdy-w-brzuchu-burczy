@@ -11,7 +11,12 @@
     "build": "astro build && npx -y pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,astro}": "eslint --fix",
+    "*.{js,jsx,ts,tsx,astro,css,scss,json,md}": "prettier --write"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.5.0",
@@ -30,6 +35,11 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.3",
     "eslint": "^9.28.0",
+    "eslint-plugin-astro": "^3.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.2.0",
+    "prettier": "^3.9.6",
+    "prettier-plugin-astro": "^0.14.1",
     "typescript": "^5.8.0"
   }
 }

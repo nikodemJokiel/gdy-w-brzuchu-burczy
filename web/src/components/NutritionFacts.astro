@@ -1,0 +1,101 @@
+---
+interface NutritionProps {
+  calories?: number;
+  protein?: number;
+  fat?: number;
+  carbs?: number;
+  fiber?: number;
+}
+
+const { calories, protein, fat, carbs, fiber } = Astro.props as NutritionProps;
+
+const hasAnyNutrition = calories || protein || fat || carbs || fiber;
+---
+
+{hasAnyNutrition && (
+  <div class="nutrition-facts">
+    <h3 class="nutrition-facts__title">Wartości odżywcze (1 porcja)</h3>
+    <div class="nutrition-facts__grid">
+      {calories && (
+        <div class="nutrition-facts__item">
+          <span class="nutrition-facts__value">{calories}</span>
+          <span class="nutrition-facts__label">kcal</span>
+        </div>
+      )}
+      {protein && (
+        <div class="nutrition-facts__item">
+          <span class="nutrition-facts__value">{protein}g</span>
+          <span class="nutrition-facts__label">Białko</span>
+        </div>
+      )}
+      {fat && (
+        <div class="nutrition-facts__item">
+          <span class="nutrition-facts__value">{fat}g</span>
+          <span class="nutrition-facts__label">Tłuszcz</span>
+        </div>
+      )}
+      {carbs && (
+        <div class="nutrition-facts__item">
+          <span class="nutrition-facts__value">{carbs}g</span>
+          <span class="nutrition-facts__label">Węglowodany</span>
+        </div>
+      )}
+      {fiber && (
+        <div class="nutrition-facts__item">
+          <span class="nutrition-facts__value">{fiber}g</span>
+          <span class="nutrition-facts__label">Błonnik</span>
+        </div>
+      )}
+    </div>
+  </div>
+)}
+
+<style lang="scss">
+  .nutrition-facts {
+    background-color: var(--color-surface);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border: 1px solid var(--color-border);
+
+    &__title {
+      font-size: 1.125rem;
+      margin: 0 0 1rem 0;
+      color: var(--color-heading);
+      font-family: var(--font-heading);
+    }
+
+    &__grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    &__item {
+      flex: 1;
+      min-width: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--color-bg);
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid var(--color-border);
+    }
+
+    &__value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-accent);
+      margin-bottom: 0.25rem;
+    }
+
+    &__label {
+      font-size: 0.75rem;
+      color: var(--color-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  }
+</style>

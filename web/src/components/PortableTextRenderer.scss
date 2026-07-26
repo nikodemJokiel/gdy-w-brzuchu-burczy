@@ -1,0 +1,14 @@
+@use "../styles/variables" as *;
+
+.portable-text {
+  p {
+    text-align: justify !important;
+    hyphens: auto;
+  }
+}
+
+.recipe-layout__body .portable-text {
+  font-family: $font-body !important;
+  font-size: 1.05rem !important;
+  font-style: italic;
+}

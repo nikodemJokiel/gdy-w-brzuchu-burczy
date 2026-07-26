@@ -9,8 +9,14 @@
     "build:web": "pnpm --filter web build",
     "migrate": "pnpm --filter scripts migrate",
     "lint": "pnpm -r lint",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,astro,scss,css,json,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,astro,scss,css,json,md}\"",
+    "prepare": "husky"
   },
-  "keywords": ["blog", "culinary", "astro", "sanity"],
+  "keywords": [
+    "blog",
+    "culinary",
+    "astro",
+    "sanity"
+  ],
   "license": "MIT"
 }

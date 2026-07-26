@@ -1,0 +1,116 @@
+.ingredient-list {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 1rem 1.5rem;
+  position: sticky;
+  top: 100px;
+  /* Offset for header */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+
+  &__title {
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+    font-size: 1.5rem;
+    font-family: $font-heading;
+    //text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0.75rem;
+  }
+
+  &__group {
+    margin-bottom: 1.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__group-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+    margin-top: 0;
+  }
+
+  &__items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.1s ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &.is-checked {
+
+      .ingredient-list__name,
+      .ingredient-list__measure {
+        text-decoration: line-through;
+        color: var(--color-muted);
+        opacity: 0.7;
+      }
+    }
+  }
+
+  &__checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-border);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: all 0.2s ease;
+    background-color: var(--color-bg);
+
+    &.is-checked {
+      background-color: var(--color-heading);
+      border-color: var(--color-heading);
+      color: var(--color-bg);
+    }
+
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.4;
+  }
+
+  &__name {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-text);
+    transition: color 0.2s ease;
+  }
+
+  &__measure {
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    font-style: italic;
+    transition: color 0.2s ease;
+  }
+}
