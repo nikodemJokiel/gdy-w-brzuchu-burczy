@@ -12,7 +12,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint .",
-    "prepare": "husky"
+    "prepare": "husky || true"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,astro}": "eslint --fix",

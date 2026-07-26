@@ -10,7 +10,7 @@
     "migrate": "pnpm --filter scripts migrate",
     "lint": "pnpm -r lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,astro,scss,css,json,md}\"",
-    "prepare": "husky"
+    "prepare": "husky || true"
   },
   "keywords": [
     "blog",
