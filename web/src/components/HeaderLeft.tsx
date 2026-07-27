@@ -9,6 +9,14 @@ const PLACEHOLDERS = [
 export default function HeaderLeft() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setIsMenuOpen(false);
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
   const [searchQuery, setSearchQuery] = useState(() => {
     if (typeof window !== "undefined") {
       return new URLSearchParams(window.location.search).get("q") || "";
@@ -92,9 +100,25 @@ export default function HeaderLeft() {
     setSearchQuery("");
   };
 
+  const openMenu = () => {
+    setIsMenuOpen(true);
+    window.history.pushState({ menu: "open" }, "");
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+    if (window.history.state?.menu === "open") {
+      window.history.back();
+    }
+  };
+
   const toggleMenu = () => {
     if (!isMenuOpen) setIsSearchOpen(false);
-    setIsMenuOpen(!isMenuOpen);
+    if (isMenuOpen) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
   };
 
   const toggleSearch = () => {
@@ -161,7 +185,7 @@ export default function HeaderLeft() {
         </div>
       </div>
       
-      <HamburgerMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <HamburgerMenu isOpen={isMenuOpen} onClose={closeMenu} />
     </>
   );
 }
