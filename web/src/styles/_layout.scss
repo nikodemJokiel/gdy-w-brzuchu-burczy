@@ -9,11 +9,21 @@
   max-width: $content-max-width;
   margin-inline: auto;
   padding-inline: $content-padding;
+
+  @media (max-width: $bp-tablet) {
+    padding-inline: $space-4;
+  }
+
+  @media (max-width: $bp-mobile) {
+    padding-inline: $space-3;
+  }
 }
 
 .main-content {
   padding-top: calc($header-height + $space-6);
   min-height: 100vh;
+  /* Close: slides up after 0.3s (waiting for searchbar to hide) */
+  transition: padding-top 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
 
   @media (max-width: $bp-tablet) {
     padding-top: calc($header-height + $space-2);
@@ -21,8 +31,10 @@
 }
 
 body.mobile-search-open .main-content {
-  @media (max-width: 768px) {
-    padding-top: calc($header-height + $space-2 + 74px);
+  @media (max-width: $bp-tablet) {
+    padding-top: calc($header-height + $space-2 + 68px);
+    /* Open: slides down immediately with the lupa */
+    transition: padding-top 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s;
   }
 }
 

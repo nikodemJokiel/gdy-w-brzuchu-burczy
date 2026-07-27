@@ -1,8 +1,13 @@
 .header__left {
   display: flex;
   align-items: center;
-  gap: 0.75rem; /* $space-3 */
+  gap: 0.75rem;
+  /* $space-3 */
   flex: 1;
+
+  @media (max-width: 1024px) {
+    justify-content: space-between;
+  }
 }
 
 .header__hamburger {
@@ -36,6 +41,7 @@
   .header__hamburger-line:nth-child(1) {
     transform: translateY(-4px);
   }
+
   .header__hamburger-line:nth-child(2) {
     transform: translateY(4px);
   }
@@ -45,6 +51,7 @@
     .header__hamburger-line:nth-child(1) {
       transform: rotate(45deg);
     }
+
     .header__hamburger-line:nth-child(2) {
       transform: rotate(-45deg);
     }
@@ -57,7 +64,7 @@
   position: relative;
 
   &-icon-btn {
-    display: none; 
+    display: none;
     align-items: center;
     justify-content: center;
     padding: 0.5rem;
@@ -66,7 +73,7 @@
     background: transparent;
     border: none;
     cursor: pointer;
-    
+
     &:hover {
       background-color: var(--color-surface);
     }
@@ -87,29 +94,25 @@
       border-color: var(--color-text);
     }
 
-    @media (min-width: 769px) {
+    @media (min-width: 1025px) {
       &:focus-within .header__search-input {
         width: 300px;
       }
     }
   }
 
-  &-input-icon {
-    position: absolute;
-    left: 0.75rem;
-    color: var(--color-muted);
-  }
-
   &-input {
     border: 1px solid var(--color-border);
     background: var(--color-surface);
     color: var(--color-text);
-    padding: 0.5rem 2.25rem 0.5rem 2.25rem;
+    padding: 0.5rem 4.5rem 0.5rem 1rem;
     border-radius: 20px;
     outline: none;
     width: 250px;
     font-size: 0.875rem;
-    transition: width 0.3s ease, border-color 0.2s ease;
+    transition:
+      width 0.3s ease,
+      border-color 0.2s ease;
 
     &::-webkit-search-cancel-button,
     &::-webkit-search-decoration,
@@ -121,17 +124,24 @@
     }
   }
 
-  &-clear-btn {
+  &-actions {
     position: absolute;
-    right: 0.75rem;
-    color: var(--color-muted);
-    background: transparent;
-    border: none;
-    cursor: pointer;
+    right: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &-clear-btn,
+  &-submit-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
+    background: transparent;
+    border: none;
+    color: var(--color-muted);
+    cursor: pointer;
+    padding: 0.25rem;
     transition: color 0.2s ease;
 
     &:hover {
@@ -139,40 +149,115 @@
     }
   }
 
-  &-submit-btn {
-    display: none;
+  &-submit-icon {
+    @media (max-width: 1024px) {
+      svg {
+        opacity: 0;
+      }
+    }
   }
 
-  @media (max-width: 768px) {
-    &-icon-btn {
+  &-toggle-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border-radius: 0.25rem;
+    color: var(--color-text);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    width: 36px;
+    height: 36px;
+
+    @media (max-width: 1024px) {
       display: flex;
     }
 
+    .icon-search,
+    .icon-close {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 101;
+    }
+
+    .icon-search {
+      transform: translate(-50%, -50%);
+      pointer-events: auto;
+      /* Close: delay the icon sliding and z-index change until form finishes sliding out (0.3s) */
+      transition:
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
+        opacity 0.3s 0.3s,
+        z-index 0s 0.3s;
+    }
+
+    .icon-close {
+      transform: translate(-50%, -150%);
+      opacity: 0;
+      transition:
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
+        opacity 0.3s 0.3s;
+    }
+  }
+
+  &.is-active &-toggle-btn {
+    .icon-search {
+      transform: translate(-50%, calc(-50% + 66px));
+      pointer-events: none;
+      z-index: -2;
+      /* Open: icons slide immediately, z-index changes immediately */
+      transition:
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s,
+        opacity 0.3s 0s,
+        z-index 0s 0s;
+    }
+
+    .icon-close {
+      transform: translate(-50%, -50%);
+      opacity: 1;
+      /* Open: icons slide immediately */
+      transition:
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s,
+        opacity 0.3s 0s;
+    }
+  }
+
+  @media (max-width: 1024px) {
     &-form {
       position: fixed;
       top: 64px;
       left: 0;
       right: 0;
       background: var(--color-bg);
-      padding: 1rem;
+      padding: 1rem 0.5rem;
       border-bottom: 1px solid var(--color-border);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      z-index: 100;
-      
-      opacity: 0;
-      transform: translateY(-10px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      z-index: -3;
+
       pointer-events: none;
-      transition: all 0.3s ease;
+      clip-path: inset(0 0 0 100%);
+      opacity: 0;
+      /* Close: form slides out horizontally (right) immediately */
+      transition:
+        clip-path 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s,
+        opacity 0s 0.3s;
     }
 
     &.is-active &-form {
+      clip-path: inset(0 0 0 0);
       opacity: 1;
-      transform: translateY(0);
       pointer-events: auto;
+      /* Open: form slides in horizontally (left) with delay after lupa slides down */
+      transition:
+        clip-path 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
+        opacity 0s 0.3s;
     }
 
     &-input {
       width: 100%;
+
       &:focus {
         width: 100%;
       }
@@ -180,25 +265,6 @@
 
     &-input-wrapper {
       flex: 1;
-    }
-
-    &-submit-btn {
-      display: block;
-      background: transparent;
-      color: var(--color-text);
-      border: 1px solid var(--color-border);
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      font-size: 0.875rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-
-      &:hover {
-        border-color: var(--color-heading);
-        background-color: var(--color-heading);
-        color: var(--color-bg);
-      }
     }
   }
 }

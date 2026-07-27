@@ -12,11 +12,15 @@ import HeaderLeft from "./HeaderLeft.tsx";
     <HeaderLeft client:load />
 
     <a href="/" class="header__logo" aria-label="Strona główna">
-      {Astro.url.pathname === "/" || Astro.url.pathname === "/index.html" ? (
-        <h1 class="header__logo-text" style="margin:0;">Gdy w brzuchu burczy</h1>
-      ) : (
-        <span class="header__logo-text">Gdy w brzuchu burczy</span>
-      )}
+      {
+        Astro.url.pathname === "/" || Astro.url.pathname === "/index.html" ? (
+          <h1 class="header__logo-text" style="margin:0;">
+            Gdy w brzuchu burczy
+          </h1>
+        ) : (
+          <span class="header__logo-text">Gdy w brzuchu burczy</span>
+        )
+      }
     </a>
 
     <div class="header__right">
@@ -31,7 +35,20 @@ import HeaderLeft from "./HeaderLeft.tsx";
           rel="noopener noreferrer"
           aria-label="Facebook"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-facebook"
+            ><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+            ></path></svg
+          >
         </a>
         <a
           href="https://www.instagram.com/gdywbrzuchuburczy/"
@@ -39,10 +56,29 @@ import HeaderLeft from "./HeaderLeft.tsx";
           rel="noopener noreferrer"
           aria-label="Instagram"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-instagram"
+            ><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path
+              d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line
+              x1="17.5"
+              x2="17.51"
+              y1="6.5"
+              y2="6.5"></line></svg
+          >
         </a>
       </div>
-      <ThemeToggle client:load />
+      <div class="header__theme-desktop">
+        <ThemeToggle client:load />
+      </div>
     </div>
   </div>
 </header>
@@ -66,7 +102,7 @@ import HeaderLeft from "./HeaderLeft.tsx";
       padding: 0 $space-12;
       background-color: var(--color-bg);
       border-bottom: 1px solid var(--color-border);
-      @media (max-width: 640px) {
+      @media (max-width: $bp-tablet) {
         padding: 0 $space-2;
       }
       /* NO max-width — full edge-to-edge */
@@ -92,8 +128,8 @@ import HeaderLeft from "./HeaderLeft.tsx";
       display: flex;
       align-items: center;
       gap: $space-4;
-      
-      @media (max-width: 640px) {
+
+      @media (max-width: $bp-tablet) {
         gap: $space-2;
       }
     }
@@ -114,7 +150,7 @@ import HeaderLeft from "./HeaderLeft.tsx";
         }
       }
 
-      @media (max-width: $bp-mobile) {
+      @media (max-width: $bp-tablet) {
         display: none;
       }
     }
@@ -123,7 +159,7 @@ import HeaderLeft from "./HeaderLeft.tsx";
       display: flex;
       gap: $space-4;
 
-      @media (max-width: $bp-mobile) {
+      @media (max-width: $bp-tablet) {
         display: none;
       }
 
@@ -137,6 +173,14 @@ import HeaderLeft from "./HeaderLeft.tsx";
         &:hover {
           color: var(--color-text);
         }
+      }
+    }
+
+    &__theme-desktop {
+      display: flex;
+      align-items: center;
+      @media (max-width: $bp-tablet) {
+        display: none !important;
       }
     }
   }

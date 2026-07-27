@@ -41,6 +41,10 @@
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 
+    @media (max-width: 1024px) {
+      padding: 1rem 0.75rem 2rem 0.75rem;
+    }
+
     .hamburger-menu.is-open & {
       transform: translateY(0);
     }
@@ -51,13 +55,38 @@
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 2rem;
+    width: 100%;
+  }
+
+  &__top-bar-inner {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &__right-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 0.5rem;
+
+    @media (min-width: 1025px) {
+      display: none;
+    }
+  }
+
+  &__theme-mobile {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -0.25rem;
+    margin-right: -0.5rem; // counteract theme button padding to align perfectly
   }
 
   &__extra-links {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 100%;
     margin-bottom: 1rem;
 
     @media (min-width: 1025px) {
@@ -70,13 +99,13 @@
     font-weight: 400;
     color: var(--color-muted);
     text-decoration: none;
-    padding: 0.75rem 0;
+    padding: 0 0 0.75rem 0;
     transition: color 0.2s ease;
-    width: 100%;
     text-align: left;
     border-bottom: 1px solid var(--color-border);
 
     &:last-child {
+      padding-top: 0.75rem;
       border-bottom: none;
     }
 
@@ -86,12 +115,10 @@
   }
 
   &__socials {
-    position: absolute;
-    top: 1rem;
-    right: 1.5rem;
     display: flex;
     align-items: center;
     gap: 1.5rem;
+    margin-top: 0.5rem;
 
     a {
       color: var(--color-muted);
@@ -154,7 +181,7 @@
 
     &--sweet {
       grid-area: sweet;
-      
+
       @media (min-width: 641px) {
         &::before {
           content: "";
@@ -182,7 +209,7 @@
 
     &--occasions {
       grid-area: occasions;
-      
+
       @media (min-width: 1024px) {
         &::before {
           content: "";
