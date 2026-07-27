@@ -46,12 +46,12 @@ export default function IngredientList({ ingredients }: IngredientListProps) {
 
   return (
     <div className="ingredient-list">
-      <h3 className="ingredient-list__title">Składniki</h3>
+      <h2 className="ingredient-list__title">Składniki</h2>
       <div className="ingredient-list__content">
         {groups.map((group) => (
           <div key={group} className="ingredient-list__group">
             {group !== "Główne" && (
-              <h4 className="ingredient-list__group-title">{group}</h4>
+              <h3 className="ingredient-list__group-title">{group}</h3>
             )}
             <ul className="ingredient-list__items">
               {groupedIngredients[group].map((ingredient, index) => {

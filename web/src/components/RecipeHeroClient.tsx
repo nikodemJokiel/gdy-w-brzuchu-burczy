@@ -255,6 +255,7 @@ export default function RecipeHeroClient({
               className="hero-carousel-image"
               draggable={false}
               loading="eager"
+              fetchpriority="high"
               onContextMenu={(e) => e.preventDefault()}
               onClick={() => handleImageClick(urlFor(img).height(1200).format("webp").url())}
             />

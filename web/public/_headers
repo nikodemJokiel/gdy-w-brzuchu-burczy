@@ -1,2 +1,10 @@
 https://*.pages.dev/*
   X-Robots-Tag: noindex
+
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Cross-Origin-Opener-Policy: same-origin
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.sanity.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://cdn.sanity.io; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://*.api.sanity.io; frame-src 'self' https://www.youtube.com;

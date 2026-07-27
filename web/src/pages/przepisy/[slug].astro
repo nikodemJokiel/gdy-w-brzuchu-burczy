@@ -8,6 +8,12 @@ import NutritionFacts from "../../components/NutritionFacts.astro";
 import InstructionList from "../../components/InstructionList.tsx";
 import SanityComments from "../../components/SanityComments.tsx";
 
+import homeIcon from "/src/assets/icons/home.svg?raw";
+import articleIcon from "/src/assets/icons/article.svg?raw";
+import checklistIcon from "/src/assets/icons/checklist.svg?raw";
+import chefHatIcon from "/src/assets/icons/chef_hat.svg?raw";
+import commentIcon from "/src/assets/icons/comment.svg?raw";
+
 export async function getStaticPaths() {
   const query = `*[_type == "recipe"] { "slug": slug.current }`;
   const recipes = await sanityClient.fetch(query);
@@ -102,19 +108,19 @@ const contentGallery = post.gallery || [];
     {/* Bottom Mobile Navigation */}
     <nav class="mobile-nav">
       <button class="mobile-nav__btn active" data-target="recipe-hero" aria-label="Góra">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="square" stroke-linejoin="miter" class="icon"><path d="M3 10.5V22h6v-6h6v6h6V10.5L12 3z"/></svg>
+        <Fragment set:html={homeIcon} />
       </button>
       <button class="mobile-nav__btn" data-target="recipe-description" aria-label="Opis">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="square" stroke-linejoin="miter" class="icon"><path d="M2 3h9v18H2zM22 3h-9v18h9z"/></svg>
+        <Fragment set:html={articleIcon} />
       </button>
       <button class="mobile-nav__btn" data-target="recipe-ingredients" aria-label="Składniki">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="square" stroke-linejoin="miter" class="icon"><rect x="3" y="4" width="6" height="6"/><rect x="3" y="14" width="6" height="6"/><path d="M13 7h8M13 17h8"/><polyline points="4.5 7 5.5 8 7.5 6"/><polyline points="4.5 17 5.5 18 7.5 16"/></svg>
+        <Fragment set:html={checklistIcon} />
       </button>
       <button class="mobile-nav__btn" data-target="recipe-instructions" aria-label="Przygotowanie">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="square" stroke-linejoin="miter" class="icon"><path d="M7.5 13.5h15c0 2.8-2 5-4.5 5h-6c-2.5 0-4.5-2.2-4.5-5z"/><path d="M7.5 13.5L1 10c-.7-.3-.7-1.3 0-1.6l1-.5c.7-.3 1.5.1 1.8.8L7.5 13.5z"/><path d="M11.5 10.5c0-2.2 1-2.2 1-4.4s-1-2.2-1-4.4M15 10.5c0-2.2 1-2.2 1-4.4s-1-2.2-1-4.4M18.5 10.5c0-2.2 1-2.2 1-4.4s-1-2.2-1-4.4"/></svg>
+        <Fragment set:html={chefHatIcon} />
       </button>
       <button class="mobile-nav__btn" data-target="recipe-comments" aria-label="Komentarze">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="square" stroke-linejoin="miter" class="icon"><path d="M3 3h18v13H8l-5 5V3z"/></svg>
+        <Fragment set:html={commentIcon} />
       </button>
     </nav>
   </main>
@@ -330,7 +336,7 @@ const contentGallery = post.gallery || [];
     border-top: 1px solid var(--color-border);
     display: flex;
     justify-content: space-around;
-    padding: 0.5rem 1rem; // Reduced vertical padding
+    padding: 0.5rem 1rem 1.25rem 1rem; // Increased vertical padding and safe area at bottom
     z-index: 9999; // Ensure it stays on top of everything
     box-sizing: border-box;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
@@ -352,22 +358,17 @@ const contentGallery = post.gallery || [];
       justify-content: center;
       outline: none;
 
-      svg {
-        width: 22px;
-        height: 22px;
-        stroke: currentColor;
-        stroke-width: 1.2; // default slim
-        transition: stroke-width 0.2s ease;
+      :global(svg) {
+        width: 26px;
+        height: 26px;
+        fill: currentColor; // Ensure fill works
+        transition: transform 0.2s ease;
       }
 
       &.active {
         color: var(--color-heading);
         opacity: 1;
-        transform: scale(1.05);
-
-        svg {
-          stroke-width: 1.8; // active bolder line
-        }
+        transform: scale(1.1);
       }
     }
   }

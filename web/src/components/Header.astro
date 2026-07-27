@@ -12,7 +12,11 @@ import HeaderLeft from "./HeaderLeft.tsx";
     <HeaderLeft client:load />
 
     <a href="/" class="header__logo" aria-label="Strona główna">
-      <span class="header__logo-text">Gdy w brzuchu burczy</span>
+      {Astro.url.pathname === "/" || Astro.url.pathname === "/index.html" ? (
+        <h1 class="header__logo-text" style="margin:0;">Gdy w brzuchu burczy</h1>
+      ) : (
+        <span class="header__logo-text">Gdy w brzuchu burczy</span>
+      )}
     </a>
 
     <div class="header__right">

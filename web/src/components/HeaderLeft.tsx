@@ -165,6 +165,7 @@ export default function HeaderLeft() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="header__search-input"
+                aria-label="Szukaj przepisów"
               />
               {searchQuery && (
                 <button 
