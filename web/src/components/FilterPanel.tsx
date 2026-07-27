@@ -59,7 +59,7 @@ export default function FilterPanel({ filters, onToggleFilter, onChangeMode, isO
 
         return (
           <div key={section.id} className={`filter-panel__section filter-panel__section--${section.id}`}>
-            <h4 className="filter-panel__label">{section.label}</h4>
+            <h2 className="filter-panel__label">{section.label}</h2>
             <div className="filter-panel__grid">
               {section.categories.map(renderCategory)}
             </div>
