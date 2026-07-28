@@ -78,6 +78,7 @@ const currentYear = new Date().getFullYear();
   .footer {
     border-top: 1px solid var(--color-border);
     background-color: var(--color-surface);
+    transition: background-color $transition-normal, border-color $transition-normal;
 
     &__inner {
       display: grid;

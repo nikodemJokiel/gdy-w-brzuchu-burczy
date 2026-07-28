@@ -87,15 +87,17 @@ export const TAGS_QUERY = `*[_type == "tag"] | order(category asc, name asc) {
 export const SITE_SETTINGS_QUERY = `*[_type == "siteSettings"][0]`;
 
 /** Fetch featured carousel recipes */
-export const CAROUSEL_QUERY = `*[_type == "recipe" && (featuredForCarouselLight == true || featuredForCarouselDark == true)] | order(publishedAt desc) [0...5] {
+export const CAROUSEL_QUERY = `*[_type == "recipe" && (featuredForCarouselLight == true || featuredForCarouselDark == true)] | order(publishedAt desc) {
   _id,
   title,
   slug,
   excerpt,
-  featuredForCarouselLight,
-  featuredForCarouselDark,
+  publishedAt,
+  mainImage,
   carouselImageLight,
-  carouselImageDark
+  carouselImageDark,
+  featuredForCarouselLight,
+  featuredForCarouselDark
 }`;
 
 /** Fetch about page (singleton) */

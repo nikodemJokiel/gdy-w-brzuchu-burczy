@@ -2,17 +2,21 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CookieConsent from "../components/CookieConsent.tsx";
 import PostGridClient from "../components/PostGridClient.tsx";
-import { sanityClient, RECIPES_QUERY } from "../lib/sanity";
+import HomeCarouselClient from "../components/HomeCarouselClient.tsx";
+import { sanityClient, RECIPES_QUERY, CAROUSEL_QUERY } from "../lib/sanity";
 
 const title = "Gdy w brzuchu burczy";
 const description = "Blog kulinarny ze sprawdzonymi, pysznymi przepisami.";
 
-const posts = await sanityClient.fetch(RECIPES_QUERY);
+const [posts, carouselPosts] = await Promise.all([
+  sanityClient.fetch(RECIPES_QUERY),
+  sanityClient.fetch(CAROUSEL_QUERY)
+]);
 ---
 
 <BaseLayout title={title} description={description}>
   <div class="container">
-    <!-- Karuzela (Faza 7) -->
+    <HomeCarouselClient client:load posts={carouselPosts} />
     
     <!-- Lista postów -->
     <PostGridClient client:load initialPosts={posts} />

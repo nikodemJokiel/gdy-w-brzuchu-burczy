@@ -4,7 +4,8 @@
   position: relative;
 
   @media (min-width: 1024px) {
-    padding-top: 2rem; /* Miejsce na górną połowę okienka */
+    padding-top: 2rem;
+    /* Miejsce na górną połowę okienka */
   }
 }
 
@@ -111,6 +112,7 @@
     object-fit: contain;
     flex: 0 0 100vw;
     scroll-snap-align: center;
+    scroll-snap-stop: always;
   }
 }
 
@@ -190,7 +192,7 @@
   width: 100%;
   padding: 0;
   gap: 0.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .hero-carousel-tag {

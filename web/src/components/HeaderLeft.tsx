@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import HamburgerMenu from "./HamburgerMenu";
 import "./HeaderLeft.scss";
 
 const PLACEHOLDERS = ["Szukaj przepisów..."];
 
 export default function HeaderLeft() {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
@@ -121,11 +122,17 @@ export default function HeaderLeft() {
   };
 
   const toggleMenu = () => {
-    if (!isMenuOpen) setIsSearchOpen(false);
-    if (isMenuOpen) {
-      closeMenu();
-    } else {
+    if (!isMenuOpen) {
+      if (isSearchOpen) {
+        inputRef.current?.blur();
+        // Delay closing searchbar until hamburger menu covers it and keyboard hides
+        setTimeout(() => {
+          setIsSearchOpen(false);
+        }, 400);
+      }
       openMenu();
+    } else {
+      closeMenu();
     }
   };
 
@@ -135,12 +142,17 @@ export default function HeaderLeft() {
         closeMenu();
         setTimeout(() => {
           setIsSearchOpen(true);
+          // Wait for animation to start, then focus
+          setTimeout(() => inputRef.current?.focus(), 100);
         }, 400);
       } else {
         setIsSearchOpen(true);
+        // Focus immediately on interaction
+        inputRef.current?.focus();
       }
     } else {
       setIsSearchOpen(false);
+      inputRef.current?.blur();
     }
   };
 
@@ -197,6 +209,7 @@ export default function HeaderLeft() {
           <form className="header__search-form" onSubmit={handleSearch}>
             <div className="header__search-input-wrapper">
               <input
+                ref={inputRef}
                 type="search"
                 maxLength={40}
                 placeholder={placeholderText || " "}

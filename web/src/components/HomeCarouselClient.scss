@@ -1,0 +1,274 @@
+@import '../styles/variables.scss';
+
+.home-carousel-wrapper {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  overflow: hidden;
+  margin-bottom: 0rem;
+  margin-top: -2rem;
+
+  .track-light {
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity 0.25s ease;
+  }
+
+  .track-dark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+}
+
+[data-theme="dark"] .home-carousel-wrapper {
+  .track-light {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .track-dark {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.carousel-track-container {
+  position: relative;
+  width: 100%;
+
+  &:hover .carousel-arrow {
+    opacity: 1;
+  }
+}
+
+.carousel-track {
+  display: flex;
+  gap: 8px; // narrow gaps
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-top: 4rem;
+  padding-bottom: 2rem;
+
+  @media (max-width: 1023px) {
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.5rem;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &.is-dragging {
+    cursor: grabbing;
+    scroll-behavior: auto !important;
+
+    .carousel-item-info,
+    img {
+      pointer-events: none;
+    }
+  }
+}
+
+.carousel-item {
+  flex: 0 0 900px;
+  max-width: 80vw;
+  height: 450px;
+  max-height: 40vw;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: 1023px) {
+    flex: 0 0 100vw;
+    max-width: 100vw;
+    height: 50vw;
+    max-height: none;
+  }
+}
+
+.carousel-item-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  .carousel-item-image-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    transition: transform 0.4s ease;
+  }
+
+  &:hover {
+    img {
+      transform: scale(1.04);
+    }
+
+    .carousel-item-info {
+      @media (min-width: 1024px) {
+        transform: translate(-50%, -50%);
+      }
+
+      @media (max-width: 1023px) {
+        transform: translateX(-50%);
+      }
+    }
+  }
+}
+
+.carousel-item-info {
+  position: absolute;
+  top: -2.5rem;
+  left: 50%;
+  background-color: var(--color-bg);
+  padding: 0.5rem 2rem 0.75rem 2rem;
+  text-align: center;
+  width: max-content;
+  max-width: 90%;
+  z-index: 2;
+  text-decoration: none;
+  color: var(--color-text);
+
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(-1rem);
+  transition: opacity 0.5s ease, transform 0.5s ease, background-color 0.25s ease, color 0.25s ease;
+
+  @media (min-width: 1024px) {
+    top: -1rem;
+    padding: 1rem 2rem;
+    max-width: 95vw;
+    transform: translate(-50%, calc(-50% - 1rem));
+  }
+
+  :root:not([data-theme="dark"]) .track-light .carousel-item.is-visible &,
+  [data-theme="light"] .track-light .carousel-item.is-visible &,
+  [data-theme="dark"] .track-dark .carousel-item.is-visible & {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+
+    @media (min-width: 1024px) {
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .date {
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    font-family: $font-body;
+
+    @media (min-width: 1024px) {
+      font-size: 0.95rem;
+    }
+  }
+
+  .title {
+    margin: 0;
+    font-family: $font-heading;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--color-text);
+    line-height: 1.2;
+
+    @media (min-width: 1024px) {
+      font-size: clamp(1rem, calc(150vw / var(--char-count, 30)), 2rem);
+      white-space: nowrap;
+    }
+  }
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+  border-radius: 6px;
+  border: none;
+  width: 36px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.2s ease, background 0.2s ease;
+  color: #fff;
+  box-shadow: none;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.6);
+    transform: translateY(-50%) scale(1.05);
+  }
+
+  &.left {
+    left: 1rem;
+  }
+
+  &.right {
+    right: 1rem;
+  }
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  @media (max-width: 1023px) {
+    opacity: 1; // Always visible on touch/tablet since there's no hover
+  }
+
+  @media (max-width: 639px) {
+    display: none;
+  }
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transition: background 0.3s ease, transform 0.3s ease;
+
+    &.active {
+      background: rgba(255, 255, 255, 1);
+      transform: scale(1.2);
+    }
+  }
+}
